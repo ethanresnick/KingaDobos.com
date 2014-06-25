@@ -31,6 +31,10 @@ h1, h2, ul, li, p {
     padding: 1.2rem;
 }
 
+.footer {
+    padding-top: 0 !important;
+}
+
 /* ELEMENT STYLES */
 html {
     @extend %base;
@@ -92,10 +96,6 @@ abbr {
 .header .title {
     font-style: italic;
     font-size: 1.16em; /* match the h1 only optically */
-}
-
-.footer {
-    margin-top: -1rem;
 }
 
 .footer p {
@@ -243,7 +243,6 @@ a.progressively-disclose:hover { text-decoration:underline; }*/
 
     .footer {
         margin-left: 12em;
-        padding-top: 0;
     }
 
     .body header {
