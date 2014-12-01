@@ -101,9 +101,10 @@ abbr {
 }
 
 .footer p {
-    border-top: 2px solid $textOnBaseColor;
-    padding: .7rem .1rem;
-    background-color: #dddddb;
+    border-top: 1.5px solid $textOnBaseColor;
+    padding: 1.22rem .0rem 1.28rem;
+    background-color: #dfdfdd;
+    text-align: center;
 }
 
 /*.progressively-disclose { text-decoration:none; }
