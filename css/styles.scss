@@ -33,6 +33,7 @@ h1, h2, ul, li, p {
 
 .footer {
     padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 /* ELEMENT STYLES */
@@ -100,8 +101,9 @@ abbr {
 }
 
 .footer p {
-    border-top: 1px solid $textOnBaseColor;
-    padding-top: .25rem;
+    border-top: 2px solid $textOnBaseColor;
+    padding: .7rem .1rem;
+    background-color: #dddddb;
 }
 
 /*.progressively-disclose { text-decoration:none; }
