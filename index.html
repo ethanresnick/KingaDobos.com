@@ -76,6 +76,14 @@
                 if(percentComplete <= 1) {
                     updateElemStyles(percentComplete);
                 }
+                else {
+                    // In a perfect world, this wouldn't be necessary.
+                    // But sometimes browsers throttle the resize event a bit
+                    // too aggressively, and the animation can get stuck in
+                    // the middle if we don't have this (and rAF didn't seem
+                    // to help, hence sticking with the listener approach).
+                    updateElemStyles(1);
+                }
             });
         });
         </script>
