@@ -16,13 +16,13 @@
             var animMinWidth = 900;
 
             var keyframes = [{
-                elm: $("#kinga"),
+                elm: document.getElementById('kinga'),
                 properties: [["font-size", 4, 1.45, "em"]]
             }, {
-                elm: $('#tagline'),
+                elm: document.getElementById('tagline'),
                 properties: [["font-size", 1.25, 1.05, "em"], ["line-height", 1.4, 2.15, "rem"]],
             }, {
-                elm: $('#header-content'),
+                elm: document.getElementById('header-content'),
                 properties: [["top", 12, 7.2, "em"]]
             }];
 
@@ -35,9 +35,7 @@
                 // we're below the width at which the animations apply.
                 if(windowWidth < animMinWidth) {
                     for(var i = 0, len = keyframes.length; i < len; i++) {
-                        for(var j = 0, len2 = keyframes[i].properties.length; j < len2; j++) {
-                            keyframes[i].elm.css(keyframes[i].properties[j][0], '');
-                        }
+                        keyframes[i].elm.removeAttribute('style');
                     }
                 }
 
@@ -50,24 +48,25 @@
             });
 
             function updateElemStyles(percentComplete) {
-                var i, j, len, len2, currProp, propName, startVal, endVal, suffix;
+                var i, j, len, len2, elm, styleStr, currProp, propName, startVal, currVal;
 
                 for(i = 0, len = keyframes.length; i < len; i++) {
+                    elm = keyframes[i].elm;
+                    styleStr = '';
+
                     for(j = 0, len2 = keyframes[i].properties.length; j < len2; j++) {
                         currProp = keyframes[i].properties[j];
                         propName = currProp[0];
                         startVal = currProp[1];
-                        endVal = currProp[2];
-                        suffix = currProp[3];
-
-                        keyframes[i].elm.css(propName,
-                            (startVal - (startVal - endVal)*percentComplete) + suffix
-                        );
+                        currVal = (startVal - (startVal - currProp[2])*percentComplete) + currProp[3];
+                        styleStr += propName + ':' + currVal + ';';
                     }
+
+                    elm.setAttribute('style', styleStr);
                 }
             }
 
-            $(window).scroll(function(event) {
+            $window.scroll(function(event) {
                 if(windowWidth < animMinWidth) {
                     return;
                 }
