@@ -40,31 +40,41 @@
                         }
                     }
                 }
+
+                // But if resizing switched us to now _being_ at an animateable
+                // width, we need to update the element styles based on the
+                // current scroll position.
+                else {
+                    updateElemStyles(Math.min(1, $window.scrollTop()/animEnd));
+                }
             });
+
+            function updateElemStyles(percentComplete) {
+                var i, j, len, len2, currProp, propName, startVal, endVal, suffix;
+
+                for(i = 0, len = keyframes.length; i < len; i++) {
+                    for(j = 0, len2 = keyframes[i].properties.length; j < len2; j++) {
+                        currProp = keyframes[i].properties[j];
+                        propName = currProp[0];
+                        startVal = currProp[1];
+                        endVal = currProp[2];
+                        suffix = currProp[3];
+
+                        keyframes[i].elm.css(propName,
+                            (startVal - (startVal - endVal)*percentComplete) + suffix
+                        );
+                    }
+                }
+            }
 
             $(window).scroll(function(event) {
                 if(windowWidth < animMinWidth) {
                     return;
                 }
 
-                var scrollPosition = $window.scrollTop();
-                var percentComplete = scrollPosition/animEnd;
-                var i, j, len, len2, currProp, propName, startVal, endVal, suffix;
-
+                var percentComplete = $window.scrollTop()/animEnd;
                 if(percentComplete <= 1) {
-                    for(i = 0, len = keyframes.length; i < len; i++) {
-                        for(j = 0, len2 = keyframes[i].properties.length; j < len2; j++) {
-                            currProp = keyframes[i].properties[j];
-                            propName = currProp[0];
-                            startVal = currProp[1];
-                            endVal = currProp[2];
-                            suffix = currProp[3];
-
-                            keyframes[i].elm.css(propName,
-                                (startVal - (startVal - endVal)*percentComplete) + suffix
-                            );
-                        }
-                    }
+                    updateElemStyles(percentComplete);
                 }
             });
         });
